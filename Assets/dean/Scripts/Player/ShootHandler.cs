@@ -52,24 +52,28 @@ public class ShootHandler : MonoBehaviour
 
         currentAmmo--;
         RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward);
+
         for (int i = 0; i < projectiles; i++)
+{
+    Vector3 dir = cam.transform.forward;
+
+    dir += cam.transform.up * Random.Range(-spread, spread);
+    dir += cam.transform.right * Random.Range(-spread, spread);
+    dir.Normalize();
+
+    Debug.DrawRay(cam.transform.position, dir * maxDistance, Color.red, 1f);
+
+    if (Physics.Raycast(cam.transform.position, dir, out RaycastHit hitI, maxDistance, layerMask))
+    {
+        HealthHandler health = hitI.collider.GetComponentInParent<HealthHandler>();
+        if (health != null)
         {
-            Vector3 dir = cam.transform.forward;
-            Vector3 spreadOffset = Vector3.zero;
-            spreadOffset += cam.transform.up * Random.Range(-spread, spread);
-            spreadOffset += cam.transform.right * Random.Range(-spread, spread);
-            dir += (dir + spreadOffset).normalized;
-            
-            if (Physics.Raycast(cam.transform.position, dir, out hit, maxDistance, layerMask))
-            {
-                if (hit.collider.GetComponent<HealthHandler>())
-                {
-
-                    hit.collider.gameObject.GetComponent<HealthHandler>().DamageHandler("Player", damage);
-
-                }
-            }
+            health.DamageHandler("Player", damage);
+            health.DamageHandler("Enemy", damage);
         }
+    }
+}
     }
     
     private void OnReload(InputAction.CallbackContext context)

@@ -278,7 +278,7 @@ MonoBehaviour:
   value: 12
   timeBeforeSpawn: 10
   pickupTrigger: {fileID: 309355725920210829}
-  pickupVisual: {fileID: 6336731183667275422, guid: c2242e1d4bbb9954fbaf7132748389a4, type: 3}
+  pickupVisual: {fileID: 1201266842831778169}
   timer: 10
 --- !u!1 &5018213134076441945
 GameObject:

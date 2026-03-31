@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTags:
-  - Damage Enemy
+  - Player
   health: 10
   healthMax: 10
   destroyOnDeath: 1

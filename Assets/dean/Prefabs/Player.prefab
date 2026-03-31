@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDistance: 10
   damage: 5
-  spread: 1
+  spread: 0
   projectiles: 1
   layerMask:
     serializedVersion: 2
