@@ -15,8 +15,6 @@ public class EnemyAI : MonoBehaviour
     public float patrolRange = 4f;
 
     [Header("ATTACK PARAMETERS")] 
-    public float fireCooldown = 1.5f;
-    private float fireTimer = 0f;
     public GameObject projectilePrefab;
     public Transform projectileSpawn;
     public Transform playerTransform;
@@ -27,8 +25,10 @@ public class EnemyAI : MonoBehaviour
     
     private Vector3 target;
     
+    [Header("ANIMATION")]
+    public Animator animator;
+    public HealthHandler healthHandler;
     
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +53,13 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+        if (healthHandler.health <= 0)
+        {
+            currentState = EnemyState.Dead;
+            StateHandler();
+            return;
+        }
+
         if (distanceToPlayer <= attackRange)
         {
             currentState = EnemyState.Attack;
@@ -66,10 +73,10 @@ public class EnemyAI : MonoBehaviour
             currentState = EnemyState.Patrol;
         }
         
-        StateHandler(distanceToPlayer);
+        StateHandler();
     }
 
-    public void StateHandler(float distanceToPlayer)
+    public void StateHandler()
     {
         //Debug.Log(enemyBehaviour);
       
@@ -77,22 +84,31 @@ public class EnemyAI : MonoBehaviour
         {
             case EnemyState.Idle:
                 navMeshAgent.isStopped = false;
+                animator.SetBool("Attacking", false);
+                animator.SetBool("Running", false);
                 StartCoroutine(IdleFor(1f));
                 currentState = EnemyState.Patrol;
                 break;
             case EnemyState.Patrol:
+                animator.SetBool("Attacking", false);
+                animator.SetBool("Running", true);
                 PatrolRoutine();
                 break;
             case EnemyState.Chase:
                 navMeshAgent.isStopped = false;
+                animator.SetBool("Attacking", false);
+                animator.SetBool("Running", true);
                 navMeshAgent.SetDestination(playerTransform.position);
                 break;
             case EnemyState.Attack:
                 navMeshAgent.isStopped = true;
+                animator.SetBool("Attacking", true);
+                animator.SetBool("Running", false);
                 transform.LookAt(playerTransform.position);
-                AttackRoutine();
                 break;
             case EnemyState.Dead:
+                
+                animator.SetTrigger("Dead");
                 break;
         }
     }
@@ -130,16 +146,7 @@ public class EnemyAI : MonoBehaviour
     
     //ATTACK
 
-    public void AttackRoutine()
-    {
-         fireTimer -= Time.deltaTime;
-         if (fireTimer <= 0)
-         {
-             FireProjectile();
-             fireTimer = fireCooldown;
-         }
-    }
-
+    //Hint: shifted to animation event driven code
     public void FireProjectile()
     {
         if (projectilePrefab != null && projectileSpawn != null)

@@ -7,15 +7,17 @@ using UnityEngine;
 public class HealthHandler : MonoBehaviour
 {
     [SerializeField] private string[] damageTags;
-    [SerializeField] private float health;
+    [SerializeField] public float health;
     [SerializeField] private float healthMax;
     
     [SerializeField] private bool destroyOnDeath;
     [SerializeField] private float destroyOnDeathDelay;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         health = healthMax;
+        
     }
 
     // Update is called once per frame
@@ -42,6 +44,7 @@ public class HealthHandler : MonoBehaviour
             
         }
     }
+    
 
     public void HealHandler(float healAmount)
     {

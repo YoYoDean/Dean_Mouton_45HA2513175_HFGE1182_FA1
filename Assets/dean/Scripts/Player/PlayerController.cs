@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour
     private float crouchHeight = 1f;
     [SerializeField]
     private float standingHeight = 2f;
-    [SerializeField]
-    private float cameraHeight = 1.5f;
     
     
     [Header("GROUND DETECTION")]
@@ -41,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     public float groundCheckDistance;
     public LayerMask groundLayer;
-
 
     private void Awake()
     {
@@ -131,7 +128,6 @@ public class PlayerController : MonoBehaviour
     public void Crouch()
     {
         float targetHeight = isCrouching ? crouchHeight:standingHeight;
-        float currentHeight = hitbox.height;
         hitbox.height = Mathf.Lerp(hitbox.height, targetHeight, 0.2f);
         
         Vector3 camLocalPos = playerCamera.transform.localPosition;
