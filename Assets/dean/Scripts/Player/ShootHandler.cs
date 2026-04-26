@@ -17,9 +17,10 @@ public class ShootHandler : MonoBehaviour
     [SerializeField] private int projectiles;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private GameObject muzzle;
+    //private UI uI;
     
     [Header("AMMO")]
-    [SerializeField] private int currentAmmo;
+    [SerializeField] public int currentAmmo;
     [SerializeField] private int maxAmmo;
     [SerializeField] private int totalAmmo;
 
@@ -65,6 +66,7 @@ public class ShootHandler : MonoBehaviour
         animatorGun.SetTrigger("Shoot");
         animatorHands.SetTrigger("Shoot");
         currentAmmo--;
+        //uI.instance.UpdateAmmo(currentAmmo);
         RaycastHit hit;
         
         for (int i = 0; i < projectiles; i++)

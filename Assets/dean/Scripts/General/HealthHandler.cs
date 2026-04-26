@@ -9,6 +9,7 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] private string[] damageTags;
     [SerializeField] public float health;
     [SerializeField] private float healthMax;
+   /// private UI uI;
     
     [SerializeField] private bool destroyOnDeath;
     [SerializeField] private float destroyOnDeathDelay;
@@ -17,6 +18,7 @@ public class HealthHandler : MonoBehaviour
     void Start()
     {
         health = healthMax;
+       // uI.instance.UpdateHealth(health);
         
     }
 
@@ -36,6 +38,7 @@ public class HealthHandler : MonoBehaviour
             if (damageAmount <= health)
             {
                 health -= damageAmount;
+                //uI.instance.UpdateHealth(health);
             }
             else
             {
@@ -51,10 +54,12 @@ public class HealthHandler : MonoBehaviour
         if (health + healAmount >= healthMax)
         {
             health = healthMax;
+           //uI.instance.UpdateHealth(health);
         }
         else
         {
             health += healAmount;
+           // uI.instance.UpdateHealth(health);
         }
     }
 
