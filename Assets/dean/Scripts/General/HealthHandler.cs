@@ -69,6 +69,7 @@ public class HealthHandler : MonoBehaviour
         if (destroyOnDeath)
         {
             StartCoroutine(DeathDelay(destroyOnDeathDelay));
+            //SceneManagerScript.instance.Restart();
             
         }
         else
@@ -79,7 +80,7 @@ public class HealthHandler : MonoBehaviour
     public IEnumerator DeathDelay(float time)
     {
         yield return new WaitForSeconds(time);
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
         
     }
 

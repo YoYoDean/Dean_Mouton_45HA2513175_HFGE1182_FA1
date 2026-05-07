@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b30a9840659cd4aacc47bca646cffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 12
-  timeBeforeSpawn: 10
+  value: 30
+  timeBeforeSpawn: 15
   pickupTrigger: {fileID: 309355725920210829}
   pickupVisual: {fileID: 1201266842831778169}
   timer: 10

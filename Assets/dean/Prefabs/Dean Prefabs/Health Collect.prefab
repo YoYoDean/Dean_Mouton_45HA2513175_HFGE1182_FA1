@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603200f301d9b5e4e86ba9ea1333606d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 30
+  value: 100
   timeBeforeSpawn: 10
   pickupTrigger: {fileID: 1449097370442217926}
   pickupVisual: {fileID: 7802379442656397832}

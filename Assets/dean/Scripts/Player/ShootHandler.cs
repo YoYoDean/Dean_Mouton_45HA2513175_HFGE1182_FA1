@@ -57,6 +57,8 @@ public class ShootHandler : MonoBehaviour
 
     public void OnShoot(InputAction.CallbackContext context)
     {
+        if (context.performed)
+        {
         if (currentAmmo <= 0)
         {
             OnReload(new InputAction.CallbackContext());
@@ -76,8 +78,8 @@ public class ShootHandler : MonoBehaviour
             spreadOffset += muzzle.transform.up * Random.Range(-spread, spread);
             spreadOffset += muzzle.transform.right * Random.Range(-spread, spread);
             dir += (dir + spreadOffset).normalized;
-            Debug.DrawRay(muzzle.transform.position, dir, Color.red, 3f);
-            
+            Debug.DrawRay(muzzle.transform.position, dir * maxDistance, Color.red, 3f);
+            Physics.Raycast(muzzle.transform.position, dir , maxDistance);
             if (Physics.Raycast(muzzle.transform.position, dir, out hit, maxDistance, layerMask))
             {
                 
@@ -93,6 +95,7 @@ public class ShootHandler : MonoBehaviour
                     Destroy(hitParticle, particleDuration);
                 }
             }
+        }
         }
     }
     
