@@ -86,7 +86,7 @@ public class EnemyAI : MonoBehaviour
                 navMeshAgent.isStopped = false;
                 animator.SetBool("Attacking", false);
                 animator.SetBool("Running", false);
-                StartCoroutine(IdleFor(1f));
+                StartCoroutine(IdleFor(3f));
                 currentState = EnemyState.Patrol;
                 break;
             case EnemyState.Patrol:
