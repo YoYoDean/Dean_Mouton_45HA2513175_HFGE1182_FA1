@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -67,12 +68,19 @@ public class HealthHandler : MonoBehaviour
     {
         if (destroyOnDeath)
         {
-            this.gameObject.SetActive(false);
+            StartCoroutine(DeathDelay(destroyOnDeathDelay));
+            
         }
         else
         {
             
         }
+    }
+    public IEnumerator DeathDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+        
     }
 
 }

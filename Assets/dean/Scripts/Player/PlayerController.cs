@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     public float groundCheckDistance;
     public LayerMask groundLayer;
+    [Header("animator")]
+    public Animator animator;
+
 
     private void Awake()
     {
@@ -92,7 +95,16 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = transform.right * moveDirection.x + transform.forward * moveDirection.y;
         float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
         Vector3 targetVelocity = moveDir * currentSpeed;
-        
+
+        float animationSpeed = 0f;
+
+        if (moveDirection.magnitude > 0.1f)
+        {
+            animationSpeed = isSprinting ? 1f : 0.5f;
+        }
+
+        animator.SetFloat("Speed", animationSpeed);
+
         targetVelocity.y = rb.linearVelocity.y;
         rb.linearVelocity = targetVelocity;
     }

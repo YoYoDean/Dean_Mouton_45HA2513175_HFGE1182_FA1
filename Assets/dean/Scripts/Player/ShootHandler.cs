@@ -71,12 +71,12 @@ public class ShootHandler : MonoBehaviour
         
         for (int i = 0; i < projectiles; i++)
         {
-            Vector3 dir = muzzle.transform.right;
+            Vector3 dir = muzzle.transform.forward;
             Vector3 spreadOffset = Vector3.zero;
             spreadOffset += muzzle.transform.up * Random.Range(-spread, spread);
             spreadOffset += muzzle.transform.right * Random.Range(-spread, spread);
             dir += (dir + spreadOffset).normalized;
-            //Debug.DrawRay(muzzle.transform.position, dir, Color.red, 3f);
+            Debug.DrawRay(muzzle.transform.position, dir, Color.red, 3f);
             
             if (Physics.Raycast(muzzle.transform.position, dir, out hit, maxDistance, layerMask))
             {
@@ -88,7 +88,7 @@ public class ShootHandler : MonoBehaviour
                     {
                         return;
                     }
-                    
+                    Debug.Log("Skiet raak: " + hit);
                     GameObject hitParticle = Instantiate(particlePrefab, hit.transform.position, Quaternion.identity);
                     Destroy(hitParticle, particleDuration);
                 }
